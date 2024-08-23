@@ -1,0 +1,96 @@
+{% include "header.html" %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+
+        <form action="{{ url_for ('showdatapm.Showsearch')}}" method="POST">
+  <div class="input-group-prepend align-items-center">
+    <span class="input-group-text" id="basic-addon1">ค้นหา</span>
+    <input type="text" class="form-control" placeholder="ใส่ชื่อวิทยาลัย" name="ssearch" autocomplete="off" required>
+ &nbsp;
+      <button type="submit" class="btn btn-outline-primary">ค้นหา</button>
+
+
+  </div>
+</form>
+
+    </div>
+
+     <div class="col-auto">
+
+      <form action="{{ url_for ('showdatapm.Showsearch')}}" method="POST">
+  <div class="input-group-prepend align-items-center">
+      <span class="input-group-text" id="basic-addon2">ค้นหา</span>
+    <input type="text" class="form-control" placeholder="ใส่ชื่อจังหวัด" name="scity" autocomplete="off" required>
+ &nbsp;
+<div class="col-auto">
+  <button type="submit" class="btn btn-outline-primary">ค้นหาจังหวัด</button>
+
+    <a href="/" type="button" class="btn btn-primary">แสดงทั้งหมด</a>
+    </div>
+    </div>
+</form>
+
+    </div>
+<br><br><br>
+
+
+
+<div class="table-responsive">
+<table class="table table-bordered table-striped">
+
+  <thead>
+    <tr class="table-info">
+      <th scope="col">ลำดับ</th>
+      <th scope="col">โหนด</th>
+      <th scope="col">สถานที่</th>
+      <th scope="col">สถานที่(netka)</th>
+      <th scope="col">โซน</th>
+        <th scope="col">จังหวัด</th>
+      <th scope="col">อุปกรณ์</th>
+        <th scope="col">S/N</th>
+        <th scope="col">ทีม</th>
+
+    </tr>
+  </thead>
+  <tbody>
+{% if datas %}
+{% for rows in datas %}
+    <tr>
+      <th scope="row">{{ rows.1 }}</th>
+      <td>{{ rows.2 }}</td>
+        {% if rows.10 == "Expert" %}
+      <td class="text-primary">{{ rows.4 }}</td>
+      <td class="text-primary">{{ rows.5 }}</td>
+        {% else %}
+        <td>{{ rows.4 }}</td>
+      <td>{{ rows.5 }}</td>
+        {% endif %}
+      <td>{{ rows.6 }}</td>
+        <td>{{ rows.7 }}</td>
+        <td>{{ rows.8 }}</td>
+        <td>{{ rows.9 }}</td>
+
+        {% if rows.10 == "Expert" %}
+        <td class="bg-dark text-white">{{ rows.10 }}</td>
+        {% else %}
+        <td>{{ rows.10 }}</td>
+        {% endif %}
+    </tr>
+
+
+{% endfor %}
+
+
+  </tbody>
+</table>
+
+</div>
+
+{{ pagination.links }}
+      {% else %}
+        <p>No results found</p>
+      {% endif %}
+
+{% include "footer.html" %}
